@@ -12,9 +12,8 @@ function App() {
     console.log(books);
   };
   return (
-    <div>
-    {books.length}
-      <BookList />
+    <div className="app">
+      <BookList books={books}/>
       <BookCreate onCreate={createBook} />
     </div>
   );
