@@ -10,13 +10,14 @@ function BookShow({ book, onDelete,onEdit}) {
     const handleEditClick = () =>{
         setShowEdit(!showEdit);
     }
-    const handSubmit =() =>{
+    const handSubmit =(id,newTitle) =>{
         setShowEdit(false);
+        onEdit(id,newTitle);
     }
 
     let content = book.title;
     if(showEdit){
-        content = <BookEdit onSubmit={handSubmit} onEdit={onEdit} book={book}/>;
+        content = <BookEdit onSubmit={handSubmit} book={book}/>;
     }
   return (
     <div className="book-show">
