@@ -9,19 +9,25 @@ function App() {
     const response = await axios.get("http://localhost:3001/books");
     setBook(response.data);
   };
+
   useEffect(() => {
-    fetchbooks()
-  },[]);
-  const deleteBookById = (id) => {
+    fetchbooks();
+  }, []);
+
+  const deleteBookById = async(id) => {
+    await axios.delete(`http://localhost:3001/books/${id}`);
     const updatedBooks = books.filter((book) => {
       return book.id !== id;
     });
     setBook(updatedBooks);
   };
-  const editBookById = (id, newTitle) => {
+  const editBookById = async (id, newTitle) => {
+    const response = await axios.put(`http://localhost:3001/books/${id}`, {
+      title: newTitle,
+    });
     const updatedBooks = books.map((book) => {
       if (book.id === id) {
-        return { ...book, title: newTitle };
+        return { ...book, ...response.data }; //this means take whatever is there in the book object and take everything that has been changed in the response object
       }
       return book;
     });
